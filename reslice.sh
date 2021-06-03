@@ -12,7 +12,7 @@ set -x
 
 # reslice rois
 echo "reslicing rois"
-for i in (ls ./rois/)
+for i in `ls ./rois/rois/`
 do
-	mri_vol2vol --mov ./rois/${i} --targ ${anat} --regheader --interp nearest --o ./rois/${i}
+	mri_vol2vol --mov ./rois/rois/${i} --targ ${anat} --regheader --interp nearest --o ./rois/rois/${i}
 done
