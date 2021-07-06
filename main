@@ -10,4 +10,5 @@ set -e
 echo $FREESURFER_LICENSE > license.txt
 
 echo "reslicing rois"
-time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer:6.0.0 ./reslice.sh
+# time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer:6.0.0 ./reslice.sh
+time singularity exec -e docker://brainlife/fsl:6.0.4-patched ./reslice.sh
