@@ -15,7 +15,7 @@ set -x
 # compute inverse affine
 if [[ ${inverse} == 'true' ]]; then
 	echo "computing inverse affine"
-	convert_xfm -omat inverse-affine.txt -inverse affine.txt
+	convert_xfm -omat inverse-affine.txt -inverse ${affine}
 	affine='inverse-affine.txt'
 fi
 
