@@ -3,7 +3,7 @@
 rois=`jq -r '.rois' config.json`
 anat=`jq -r '.anat' config.json`
 affine=`jq -r '.affine' config.json`
-inverse=`jq -r 'inverse' config.json`
+inverse=`jq -r '.inverse' config.json`
 
 set -x
 
