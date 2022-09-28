@@ -24,4 +24,5 @@ echo "moving ROIs to anatomy space"
 for i in `ls ./rois/rois`
 do
 	flirt -in ./rois/rois/${i} -ref ${anat} -applyxfm -init inverse-affine.txt -interp nearestneighbour -out ./output/rois/${i}
+	fslmaths ./output/rois/${i} -bin ./output/rois/${i}
 done
