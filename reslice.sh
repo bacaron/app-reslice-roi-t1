@@ -1,18 +1,17 @@
 #!/bin/bash
 
-rois=`jq -r '.rois' config.json`
+parcellation=`jq -r '.parcellation' config.json`
+label=`jq -r '.label' config.json`
 anat=`jq -r '.anat' config.json`
 
 set -x
 
-# copy over ROIs
-[ ! -d ./rois ] && mkdir -p ./rois ./output ./output/rois
+# copy over parcellation
+[ ! -d ./parcellation ] && mkdir -p ./parcellation ./output
 
-[ -z "$(ls -A ./rois/)" ] && echo "copying rois" && cp -R ${rois} ./rois/
+[ ! -f ./parcellation/parc.nii.gz ] && echo "copying parcellation" && cp ${parcellation} ./parcellation/
+[ ! -f ./parcellation/label.json ] && echo "copying label" && cp ${label} ./output/
 
 # reslice rois
 echo "reslicing rois"
-for i in `ls ./rois/rois/`
-do
-	mri_vol2vol --mov ./rois/rois/${i} --targ ${anat} --regheader --interp nearest --o ./output/rois/${i}
-done
+mri_vol2vol --mov ./parcellation/parc.nii.gz --targ ${anat} --regheader --interp nearest --o ./output/parc.nii.gz
