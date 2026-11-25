@@ -3,6 +3,39 @@
 
 # Reslice ROIS to match input anatomy
 
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+> **Reslices a volumetric parcellation onto the voxel grid of a T1-weighted image with FreeSurfer mri_vol2vol (header registration, nearest-neighbour interpolation), keeping its label file.**
+
+Resamples parc.nii.gz to the voxel size and spacing of the T1w image with mri_vol2vol --regheader and nearest-neighbour interpolation, and copies label.json unchanged. Use it when a parcellation is already in the same space as the T1w image but on a different voxel grid; it does not perform registration.
+
+| | |
+|---|---|
+| 📥 **Inputs** | `neuro/anat/t1w` · `neuro/parcellation/volume` |
+| 📤 **Outputs** | `neuro/parcellation/volume` |
+| 🐳 **Container** | `brainlife/freesurfer:6.0.0` |
+| ⚙️ **Resources** | 1 CPUs · 1 h walltime |
+| 🔑 **Requires** | `FREESURFER_LICENSE` |
+| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.749](https://doi.org/10.25663/brainlife.app.749) |
+
+#### 📥 Inputs
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `anat` | `neuro/anat/t1w` | yes | T1-weighted image whose voxel grid is the reslicing target. Must already be aligned with the parcellation; only header geometry is used. |
+| `parcellation` | `neuro/parcellation/volume` | yes | Volumetric parcellation (parc.nii.gz) with its label.json. |
+
+#### 📤 Outputs
+
+| Output | Datatype | Description |
+|---|---|---|
+| `output` | `neuro/parcellation/volume` | Parcellation resliced to the T1w voxel grid, with the original label.json. |
+
+📚 **References used by this App:**
+- Dale AM, Fischl B, Sereno MI. Cortical surface-based analysis. I. Segmentation and surface reconstruction. NeuroImage 9:179-194 (1999).
+
+<!-- brainlife-app:end -->
+
 This app will This app will reslice ROIs to match the voxel size and spacing of an input anatomical t1w image. This may need to be done if the ROIs were generated in a different space (i.e. voxel grid). This app uses Freesurfer's mri_vol2vol to reslice the data. Assumes that the space the ROIs are in are registered to the anatomical t1w image.
 
 ### Authors
